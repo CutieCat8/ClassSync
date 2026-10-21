@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils"
 
 export const COURSE_COLOR_PRESETS = [
-  "#a855f7", "#7c3aed", "#6366f1", "#3b82f6", "#06b6d4", "#10b981", "#84cc16",
+  "#4d7668", "#a855f7", "#7c3aed", "#6366f1", "#3b82f6", "#06b6d4", "#10b981", "#84cc16",
   "#eab308", "#f97316", "#ef4444", "#ec4899", "#f43f5e", "#ffffff", "#94a3b8", "#000000",
 ]
 
@@ -91,7 +91,7 @@ function useDrag(ref: React.RefObject<HTMLDivElement>, onMove: (x: number, y: nu
 }
 
 export function CourseColorPicker({ value, onChange }: { value: string; onChange: (value: string) => void }) {
-  const current = normalizeHex(value) ?? "#2563eb"
+  const current = normalizeHex(value) ?? "#4d7668"
   const [open, setOpen] = React.useState(false)
   const [hsv, setHsv] = React.useState<Hsv>(() => hexToHsv(current))
   const [hexText, setHexText] = React.useState(current)

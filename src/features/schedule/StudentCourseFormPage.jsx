@@ -3,22 +3,67 @@ import { ArrowLeft, BookOpen, Library, Save } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useApp } from "@/app/providers/AppContext";
 import { CourseColorPicker } from "./components/CourseColorPicker";
-import CourseExceptionsEditor from "./components/CourseExceptionsEditor";
-import WeeklySessionEditor, { emptySession } from "./components/WeeklySessionEditor";
+import CourseDateGrid from "./components/CourseDateGrid";
 import { ScheduleDatePicker } from "./components/ScheduleFormControls";
+import { getWeekdayOfDate, isValidDateString } from "./lib/date";
 
 const EMPTY_FORM = {
   courseCode: "",
   courseName: "",
-  color: "#2563eb",
+  color: "#4d7668",
   defaultLocation: "",
   termStart: "",
   termEnd: "",
   notes: "",
   privateNote: "",
-  sessions: [emptySession()],
+  sessions: [],
   exceptions: [],
 };
+
+const DAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function shortDate(value) {
+  if (!isValidDateString(value)) return null;
+  return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${value}T00:00:00`));
+}
+
+// Live "ticket" that mirrors what the student is filling in.
+function CoursePreview({ form }) {
+  const sessions = [...form.sessions].sort((a, b) => a.dayOfWeek - b.dayOfWeek || a.startTime.localeCompare(b.startTime));
+  const start = shortDate(form.termStart);
+  const end = shortDate(form.termEnd);
+  return (
+    <aside className="cf-preview" style={{ "--course-color": form.color || "#4d7668" }} aria-label="Course preview">
+      <div className="cf-preview-band" />
+      <div className="cf-preview-body">
+        <span className="cf-preview-eyebrow">Preview</span>
+        <strong className={form.courseCode || form.courseName ? "" : "is-empty"}>
+          {form.courseCode || form.courseName ? `${form.courseCode} ${form.courseName}`.trim() : "Your course name"}
+        </strong>
+        <p className="cf-preview-dates">{start && end ? `${start} – ${end}` : "Term dates not set"}</p>
+        {sessions.length > 0 ? (
+          <ul>
+            {sessions.map((session) => (
+              <li key={session.id}><b>{DAY_SHORT[session.dayOfWeek]}</b><span>{session.startTime}–{session.endTime}</span></li>
+            ))}
+          </ul>
+        ) : (
+          <p className="cf-preview-empty">No class days chosen yet.</p>
+        )}
+        {form.defaultLocation && <p className="cf-preview-room">{form.defaultLocation}</p>}
+      </div>
+    </aside>
+  );
+}
+
+// Drop skipped dates that no longer fall on a meeting day after the term or weekly times changed.
+function keepMeetingDateExceptions({ exceptions = [], sessions, termStart, termEnd }) {
+  if (!isValidDateString(termStart) || !isValidDateString(termEnd)) return exceptions;
+  const weekdays = new Set(sessions.map((session) => session.dayOfWeek));
+  return exceptions.filter((exception) => (
+    exception.date >= termStart && exception.date <= termEnd && weekdays.has(getWeekdayOfDate(exception.date))
+  ));
+}
 
 export default function StudentCourseFormPage() {
   const { courseId } = useParams();
@@ -74,7 +119,8 @@ export default function StudentCourseFormPage() {
   const submit = (event) => {
     event.preventDefault();
     setSaving(true);
-    const result = courseId ? updateCourse(courseId, form) : addCourse(form);
+    const payload = { ...form, exceptions: keepMeetingDateExceptions(form) };
+    const result = courseId ? updateCourse(courseId, payload) : addCourse(payload);
     if (!result.ok) {
       setErrors(result.errors || { form: result.error || "Unable to save this course." });
       setSaving(false);
@@ -84,7 +130,7 @@ export default function StudentCourseFormPage() {
   };
 
   return (
-    <div className="main-wrapper course-form-page">
+    <div className="main-wrapper course-form-page cf-dotted">
       <main className="main-content course-form-shell">
         <button className="back-btn" type="button" onClick={goBack}><ArrowLeft size={18} /> {returnTo === "/student/schedule" ? "Back to schedule" : "Back to my courses"}</button>
         <header className="course-form-title-row">
@@ -99,8 +145,13 @@ export default function StudentCourseFormPage() {
           </div>
         </header>
 
+        <div className="cf-layout">
         <form className="course-form-card" onSubmit={submit}>
           <section className="course-form-section">
+            <header className="cf-head">
+              <span className="cf-step">01</span>
+              <div><h2>Course details</h2><p>Name the course and set when the term runs.</p></div>
+            </header>
             <div className="course-form-grid two">
               <label><span>Course code *</span><input value={form.courseCode} onChange={(event) => update("courseCode", event.target.value)} placeholder="955110" />{errors.courseCode && <small>{errors.courseCode}</small>}</label>
               <label><span>Course name *</span><input value={form.courseName} onChange={(event) => update("courseName", event.target.value)} placeholder="Digital Technology" />{errors.courseName && <small>{errors.courseName}</small>}</label>
@@ -113,15 +164,26 @@ export default function StudentCourseFormPage() {
             <label><span>Default room / location</span><input value={form.defaultLocation} onChange={(event) => update("defaultLocation", event.target.value)} placeholder="Used when a class time has no location" /></label>
           </section>
 
-          <WeeklySessionEditor sessions={form.sessions} onChange={(sessions) => update("sessions", sessions)} errors={errors} />
+          <CourseDateGrid
+            sessions={form.sessions}
+            onSessionsChange={(sessions) => update("sessions", sessions)}
+            errors={errors}
+            termStart={form.termStart}
+            termEnd={form.termEnd}
+            exceptions={form.exceptions || []}
+            color={form.color}
+            onChange={(exceptions) => update("exceptions", exceptions)}
+          />
 
-          {courseId && (
-            <CourseExceptionsEditor exceptions={form.exceptions || []} onChange={(exceptions) => update("exceptions", exceptions)} />
-          )}
-
-          <section className="course-form-section course-form-notes">
+          <section className="course-form-section">
+            <header className="cf-head">
+              <span className="cf-step">03</span>
+              <div><h2>Notes</h2><p>Optional. Help your teacher verify the course.</p></div>
+            </header>
+            <div className="course-form-grid two cf-notes">
             <label><span>Verification note visible to teacher</span><textarea rows={3} value={form.notes} onChange={(event) => update("notes", event.target.value)} placeholder="Section number or supporting timetable information" /></label>
             <label><span>Private note</span><textarea rows={3} value={form.privateNote} onChange={(event) => update("privateNote", event.target.value)} placeholder="Only you can see this note" /></label>
+            </div>
           </section>
 
           {errors.form && <div className="course-form-error">{errors.form}</div>}
@@ -130,6 +192,8 @@ export default function StudentCourseFormPage() {
             <button type="submit" className="course-save-btn" disabled={saving}><Save size={17} /> {courseId ? "Save changes" : "Add course"}</button>
           </footer>
         </form>
+        <CoursePreview form={form} />
+        </div>
       </main>
     </div>
   );
