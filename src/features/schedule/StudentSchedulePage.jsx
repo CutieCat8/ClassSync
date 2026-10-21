@@ -170,13 +170,8 @@ export default function StudentSchedulePage() {
     [getMeetingsForStudent, studentId]
   );
 
-  const firstRelevantDate = useMemo(() => {
-    const today = toISO(new Date());
-    const sorted = [...meetings].sort((a, b) => a.date.localeCompare(b.date));
-    return sorted.find((meeting) => meeting.date >= today)?.date || sorted.at(-1)?.date || today;
-  }, [meetings]);
-
-  const activeDate = selectedDate || firstRelevantDate;
+  // Every fresh load opens on today; the date is only pinned after the user picks one.
+  const activeDate = selectedDate || toISO(new Date());
 
   const searchedMeetings = useMemo(() => {
     const query = search.trim().toLowerCase();
