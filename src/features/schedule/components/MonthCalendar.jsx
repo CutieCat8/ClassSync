@@ -1,13 +1,10 @@
 import React from "react";
 import { BookOpen, Clock3, MapPin, UserRound } from "lucide-react";
+import { formatLongDate } from "../lib/date";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const MAX_CHIPS = 3;
 const MEETING_COLORS = ["#e11d48", "#d97706", "#2563eb", "#7c3aed", "#4d7c6f"];
-
-function parseISO(iso) {
-  return new Date(`${iso}T00:00:00`);
-}
 
 function itemColor(item, index) {
   return item.kind === "course" ? item.color || "#2563eb" : MEETING_COLORS[index % MEETING_COLORS.length];
@@ -30,8 +27,7 @@ export default function MonthCalendar({ rows, activeDate, today, onSelectDate, o
   const activeMonth = activeDate.slice(0, 7);
   const selectedRow = rows.find((row) => row.date === activeDate);
   const selectedItems = selectedRow?.items || [];
-  const heading = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
-    .format(parseISO(activeDate));
+  const heading = formatLongDate(activeDate);
 
   return (
     <div className="month-cal">

@@ -19,6 +19,7 @@ import { CourseDetailDialog, MeetingDetailDialog } from "./components/StudentSch
 import { IcsImportDialog } from "./components/IcsImportDialog";
 import MonthCalendar from "./components/MonthCalendar";
 import { parseIcs } from "./lib/ics-import";
+import { formatLongDate } from "./lib/date";
 import { parseLegacyMeetingTime, timeToMinutes } from "./lib/meeting-time";
 
 const DAY_START = 7;
@@ -291,7 +292,7 @@ export default function StudentSchedulePage() {
     ? formatDate(activeDate, { month: "long", year: "numeric" })
     : view === "week"
     ? `${formatDate(visibleDays[0], { month: "short", day: "numeric" })} – ${formatDate(visibleDays.at(-1), { month: "short", day: "numeric", year: "numeric" })}`
-    : formatDate(activeDate, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+    : formatLongDate(activeDate);
 
   useEffect(() => {
     if (!filterOpen) return undefined;

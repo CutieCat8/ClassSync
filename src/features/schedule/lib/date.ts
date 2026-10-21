@@ -38,6 +38,18 @@ export function formatLocalDate(date: Date): string {
   return `${y}-${m}-${d}`;
 }
 
+const LONG_WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const LONG_MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+// "Wednesday, 6 May, 2026" — locale-independent so it never flips to US order.
+export function formatLongDate(dateStr: string): string {
+  const date = parseLocalDate(dateStr);
+  return `${LONG_WEEKDAYS[date.getDay()]}, ${date.getDate()} ${LONG_MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
+}
+
 export function getWeekdayOfDate(dateStr: string): WeekdayIndex {
   return parseLocalDate(dateStr).getDay() as WeekdayIndex;
 }
