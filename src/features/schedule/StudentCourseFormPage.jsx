@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, BookOpen, Library, Save } from "lucide-react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useApp } from "@/app/providers/AppContext";
+import { CourseColorPicker } from "./components/CourseColorPicker";
 import CourseExceptionsEditor from "./components/CourseExceptionsEditor";
 import WeeklySessionEditor, { emptySession } from "./components/WeeklySessionEditor";
 import { ScheduleDatePicker } from "./components/ScheduleFormControls";
@@ -107,7 +108,7 @@ export default function StudentCourseFormPage() {
             <div className="course-form-grid three">
               <label><span>Term starts *</span><ScheduleDatePicker value={form.termStart} onChange={(value) => update("termStart", value)} placeholder="Select start date" />{errors.termStart && <small>{errors.termStart}</small>}</label>
               <label><span>Term ends *</span><ScheduleDatePicker value={form.termEnd} onChange={(value) => update("termEnd", value)} placeholder="Select end date" />{errors.termEnd && <small>{errors.termEnd}</small>}</label>
-              <label><span>Course color</span><input className="course-color-input" type="color" value={form.color} onChange={(event) => update("color", event.target.value)} /></label>
+              <label><span>Course color</span><CourseColorPicker value={form.color} onChange={(value) => update("color", value)} /></label>
             </div>
             <label><span>Default room / location</span><input value={form.defaultLocation} onChange={(event) => update("defaultLocation", event.target.value)} placeholder="Used when a class time has no location" /></label>
           </section>
