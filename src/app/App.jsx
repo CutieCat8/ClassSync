@@ -5,6 +5,7 @@ import { TeacherProvider } from "@/features/teacher/TeacherContext";
 import Sidebar from "@/shared/layout/Sidebar";
 import TeacherSidebar from "@/shared/layout/TeacherSidebar";
 import LoginScreen from "@/features/auth/LoginScreen";
+import SignupScreen from "@/features/auth/SignupScreen";
 import HomePage from "@/features/home/HomePage";
 import TasksPage from "@/features/tasks/TasksPage";
 import ConsistencyPage from "@/features/consistency/ConsistencyPage";
@@ -54,6 +55,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<RoleRedirect />} />
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/signup" element={<SignupScreen />} />
 
         <Route path="/student" element={<StudentShell />}>
           <Route index element={<HomePage />} />

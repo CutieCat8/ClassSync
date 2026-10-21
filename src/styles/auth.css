@@ -1,103 +1,13 @@
-/* ===== Login Screen ===== */
-.login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  padding: 24px;
-}
 
-.login-card {
-  width: 100%;
-  max-width: 400px;
-  background: var(--bg-card);
-  border-radius: 24px;
-  padding: 40px 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
 
-.login-logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: var(--bg-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
 
-.login-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin: 0 0 6px;
-  letter-spacing: -0.5px;
-}
 
-.login-sub {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin: 0 0 24px;
-}
 
-.login-input {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1.5px solid var(--border-color);
-  background: var(--bg-main);
-  font-size: 15px;
-  font-family: inherit;
-  outline: none;
-  text-align: center;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
-}
 
-.login-input:focus {
-  border-color: var(--text-primary);
-  background: var(--bg-card);
-}
 
-.login-error {
-  width: 100%;
-  margin-top: 10px;
-  font-size: 13px;
-  color: #ef4444;
-  text-align: left;
-}
 
-.login-btn {
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  background: var(--text-primary);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
 
-.login-btn:hover {
-  background: #374151;
-}
 
-.login-hint {
-  margin-top: 20px;
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
 
 /* ===== Responsive ===== */
 @media (max-width: 1400px) {
@@ -141,51 +51,6 @@
   }
 }
 
-/* ============================================================
-   Login — role tabs
-   ============================================================ */
-.login-card-wide { max-width: 440px; }
 
-.login-role-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  width: 100%;
-  background: var(--bg-main);
-  padding: 4px;
-  border-radius: 14px;
-  margin: 4px 0 22px;
-}
-.login-role-tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.18s ease;
-}
-.login-role-tab:hover { color: var(--text-primary); }
-.login-role-tab.on {
-  background: var(--text-primary);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.18);
-}
 
-.login-label {
-  align-self: flex-start;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-}
 
