@@ -1,0 +1,150 @@
+/* Student home refresh: quiet, ordered, sage + ink.
+   Scoped to .student-dashboard and loaded last, so reverting is deleting this
+   file plus its @import. */
+
+.student-dashboard {
+  --m-accent: #002e00;
+  --m-accent-deep: #0f4410;
+  --m-accent-soft: #eef3ee;
+  --m-accent-line: #cbd8cb;
+  --m-ink: #111111;
+  --m-muted: #6b6e6b;
+  --m-faint: #a1a4a1;
+  --m-line: #e6e8e6;
+  --m-card: #ffffff;
+  color: var(--m-ink);
+  grid-template-rows: auto 92px auto auto;
+}
+
+/* ---------- heading ---------- */
+.student-dashboard .dash-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--m-accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.student-dashboard .page-title { color: var(--m-ink); font-size: clamp(28px, 2.4vw, 34px); font-weight: 700; letter-spacing: -0.03em; }
+.student-dashboard .page-date { margin-top: 8px; color: var(--m-muted); font-size: 13.5px; }
+
+.student-dashboard .search-box,
+.student-dashboard .icon-btn { border-color: var(--m-line); border-radius: 999px; background: var(--m-card); box-shadow: none; }
+.student-dashboard .icon-btn { color: var(--m-muted); }
+.student-dashboard .icon-btn:hover { background: var(--m-accent-soft); color: var(--m-accent-deep); }
+.student-dashboard .search-box:focus-within { border-color: var(--m-accent); box-shadow: 0 0 0 4px rgba(0, 46, 0, .14); }
+.student-dashboard button:focus-visible,
+.student-dashboard a:focus-visible,
+.student-dashboard input:focus-visible { outline: 2px solid var(--m-accent); }
+
+/* ---------- stats: one quiet strip, no icon tiles ---------- */
+.student-dashboard .stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  align-self: stretch;
+  margin-bottom: 0;
+}
+.student-dashboard .stat-item { display: grid; align-content: center; gap: 4px; padding: 0 24px; }
+.student-dashboard .stat-item:first-child { padding-left: 0; }
+.student-dashboard .stat-item + .stat-item { border-left: 1px solid var(--m-line); }
+.student-dashboard .stat-icon { display: none; }
+.student-dashboard .stat-label { color: var(--m-muted); font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.student-dashboard .stat-value { color: var(--m-ink); font-size: 30px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+
+/* ---------- shared card surface ---------- */
+.student-dashboard .meeting-card,
+.student-dashboard .calendar-card,
+.student-dashboard .profile-card,
+.student-dashboard .consistency-card {
+  border: 1px solid var(--m-line);
+  border-radius: 24px;
+  background: var(--m-card);
+  box-shadow: none;
+  color: var(--m-ink);
+}
+.student-dashboard .meeting-card:hover,
+.student-dashboard .calendar-card:hover,
+.student-dashboard .profile-card:hover { border-color: var(--m-accent-line); }
+
+/* ---------- next meeting ---------- */
+.student-dashboard .meeting-card { display: flex; flex-direction: column; padding: 26px; }
+.student-dashboard .meeting-card .meeting-detail:last-of-type { margin-bottom: 24px; }
+.student-dashboard .meeting-badge { padding: 5px 12px; border-radius: 999px; background: var(--m-ink); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.student-dashboard .meeting-badge.empty { border: 1px solid var(--m-line); background: transparent; color: var(--m-muted); letter-spacing: 0; text-transform: none; font-size: 12.5px; }
+.student-dashboard .meeting-type { color: var(--m-faint); font-size: 12.5px; }
+.student-dashboard .meeting-title { margin: 18px 0 14px; color: var(--m-ink); font-size: 23px; font-weight: 700; line-height: 1.25; letter-spacing: -0.02em; }
+.student-dashboard .meeting-detail { color: var(--m-muted); font-size: 14px; }
+.student-dashboard .meeting-detail svg { color: var(--m-faint); }
+.student-dashboard .meeting-extra-count { color: var(--m-accent-deep); font-weight: 600; }
+.student-dashboard .see-more-btn { margin-top: auto; border: 0; border-radius: 14px; background: var(--m-accent); color: #fff; font-weight: 600; box-shadow: none; transition: background .2s ease, transform .15s ease; }
+.student-dashboard .see-more-btn:hover { background: var(--m-accent-deep); transform: translateY(-1px); }
+.student-dashboard .empty-meeting-body > svg { color: #c3ccc8; }
+.student-dashboard .empty-meeting-text { color: var(--m-ink); font-weight: 600; }
+.student-dashboard .empty-meeting-sub { color: var(--m-faint); }
+
+/* ---------- tasks ---------- */
+.student-dashboard .tasks-header h2 { color: var(--m-ink); font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+.student-dashboard .tasks-header .see-all { color: var(--m-accent); font-size: 11.5px; font-weight: 600; letter-spacing: .1em; text-decoration: none; }
+.student-dashboard .tasks-header .see-all:hover { background: var(--m-accent-soft); color: var(--m-accent-deep); }
+.student-dashboard .tasks-tabs { display: inline-flex; gap: 4px; margin-bottom: 14px; padding: 4px; border: 1px solid var(--m-line); border-radius: 999px; background: var(--m-card); }
+.student-dashboard .task-tab { padding: 7px 18px; border: 0; border-radius: 999px; background: transparent; color: var(--m-muted); font-size: 13px; font-weight: 600; }
+.student-dashboard .task-tab:hover:not(.active) { background: #f3f6f5; }
+.student-dashboard .task-tab.active { background: var(--m-accent); color: #fff; }
+.student-dashboard .task-list { padding: 6px; border: 1px solid var(--m-line); border-radius: 24px; background: var(--m-card); }
+.student-dashboard .task-item { padding: 14px 16px; border: 0; border-radius: 16px; background: transparent; }
+.student-dashboard .task-item + .task-item { border-top: 1px solid #f0f3f2; border-top-left-radius: 0; border-top-right-radius: 0; }
+.student-dashboard .task-item:hover { background: #f8faf9; }
+.student-dashboard .task-icon,
+.student-dashboard .task-icon.task-orange,
+.student-dashboard .task-icon.task-blue,
+.student-dashboard .task-icon.task-green,
+.student-dashboard .task-icon.task-purple { width: 40px; height: 40px; border: 1px solid var(--m-line); border-radius: 12px; background: transparent; color: var(--m-ink); }
+.student-dashboard .task-icon svg { stroke-width: 1.6; }
+.student-dashboard .task-name { color: var(--m-ink); font-size: 14.5px; font-weight: 600; }
+.student-dashboard .task-meta { color: var(--m-faint); }
+.student-dashboard .task-meta .subject { color: var(--m-accent); }
+.student-dashboard .read-badge { padding: 3px 10px; border-radius: 999px; background: var(--m-accent); color: #fff; font-size: 11px; font-weight: 600; }
+.student-dashboard .read-badge.is-read { background: transparent; color: var(--m-faint); font-weight: 500; }
+.student-dashboard .task-checkbox { border-radius: 7px; border-color: #c9d3cf; }
+.student-dashboard .task-checkbox.checked { border-color: var(--m-accent); background: var(--m-accent); }
+
+/* ---------- calendar ---------- */
+.student-dashboard .calendar-card { padding: 22px; }
+.student-dashboard .calendar-title { color: var(--m-ink); font-size: 17px; font-weight: 700; }
+.student-dashboard .calendar-month { color: var(--m-muted); font-size: 12px; font-weight: 600; letter-spacing: .12em; }
+.student-dashboard .calendar-nav button { border-color: var(--m-line); background: var(--m-card); color: var(--m-muted); }
+.student-dashboard .calendar-nav button:hover { background: var(--m-accent-soft); color: var(--m-accent-deep); }
+.student-dashboard .calendar-weekday { color: var(--m-faint); font-weight: 600; }
+.student-dashboard .calendar-day:hover:not(.selected) { background: #f1f5f4; }
+.student-dashboard .calendar-day.other-month { color: #cdd4d1; }
+.student-dashboard .calendar-day.today { border: 2px solid var(--m-ink); color: var(--m-ink); }
+.student-dashboard .calendar-day.selected { background: var(--m-accent); color: #fff; }
+.student-dashboard .meeting-day-ring { inset: -2px; border: 1.5px solid var(--m-accent); animation: none; opacity: 1; }
+
+/* ---------- teacher ---------- */
+.student-dashboard .profile-card { padding: 24px 20px; }
+.student-dashboard .profile-avatar { box-shadow: 0 0 0 4px var(--m-accent-soft); }
+.student-dashboard .profile-name { color: var(--m-ink); font-weight: 700; }
+.student-dashboard .profile-role { color: var(--m-muted); }
+.student-dashboard .profile-social-btn { border: 1px solid var(--m-line); background: var(--m-card); color: var(--m-muted); }
+.student-dashboard .profile-social-btn:hover { border-color: var(--m-accent-line); background: var(--m-accent-soft); color: var(--m-accent-deep); }
+.student-dashboard .connect-btn { border: 0; border-radius: 14px; background: var(--m-accent); color: #fff; font-weight: 600; transition: background .2s ease; }
+.student-dashboard .connect-btn:hover { background: var(--m-accent-deep); }
+
+/* ---------- consistency: from a dark slab to a light card ---------- */
+.student-dashboard .consistency-card { padding: 22px; }
+.student-dashboard .consistency-header h3 { color: var(--m-ink); font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+.student-dashboard .chart-icon-btn { border: 1px solid var(--m-line); background: var(--m-card); }
+.student-dashboard .chart-icon-btn:hover { background: var(--m-accent-soft); }
+.student-dashboard .consistency-item { border: 1px solid var(--m-line); border-radius: 18px; background: #f9fbfa; }
+.student-dashboard .consistency-item-title { color: var(--m-ink); font-weight: 600; }
+.student-dashboard .consistency-item-subtitle { color: var(--m-faint); }
+.student-dashboard .consistency-item-value { color: var(--m-ink); }
+.student-dashboard .mini-chart-line polyline { stroke: var(--m-accent); }
+.student-dashboard .weekly-bar.high { background: var(--m-accent); }
+.student-dashboard .weekly-bar.mid { background: #8fa88f; }
+.student-dashboard .weekly-bar.low { background: #e4e8e4; }
+.student-dashboard .weekly-bar-label { color: var(--m-faint); }
+.student-dashboard .consistency-empty { color: var(--m-muted); }

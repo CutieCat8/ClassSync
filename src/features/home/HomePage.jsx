@@ -23,6 +23,7 @@ export default function HomePage() {
     <div className="main-wrapper student-dashboard">
       <main className="main-content">
         <header className="dashboard-heading">
+          <span className="dash-eyebrow fade-in">Dashboard · 955110</span>
           <h1 className="page-title fade-in">My Classes</h1>
           <p className="page-date fade-in">{formatToday()}</p>
         </header>

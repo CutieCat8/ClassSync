@@ -25,7 +25,7 @@ export default function ConsistencyCard() {
     return (
       <div className="consistency-card fade-in-delay-3">
         <div className="consistency-header"><h3>Your Consistency</h3></div>
-        <div className="consistency-empty">⚠️ {sheetsError}</div>
+        <div className="consistency-empty">{sheetsError}</div>
       </div>
     );
   }
@@ -89,7 +89,7 @@ export default function ConsistencyCard() {
           <div className="consistency-item-title">Meditation Record</div>
           <div className="consistency-item-value">{currentStreak}</div>
         </div>
-        <div className="consistency-item-subtitle">Count you tasks done</div>
+        <div className="consistency-item-subtitle">Count your tasks done</div>
 
         <div
           className="mini-chart-line"
@@ -158,7 +158,7 @@ export default function ConsistencyCard() {
           <div className="consistency-item-icon">
             <JournalIcon size={16} color="#111827" />
           </div>
-          <div className="consistency-item-title">Daily Yournal</div>
+          <div className="consistency-item-title">Daily Journal</div>
         </div>
         <div className="consistency-item-subtitle">Track your study time and share with friends</div>
         <div className="weekly-bars">
