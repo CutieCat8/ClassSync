@@ -116,7 +116,7 @@ export default function ConsistencyPage() {
             {sheetsLoading ? "กำลังโหลด…" : "รีเฟรช"}
           </button>
         </p>
-        {sheetsError && <div className="sheet-error-banner">⚠️ {sheetsError}</div>}
+        {sheetsError && <div className="sheet-error-banner">{sheetsError}</div>}
       </div>
 
       {/* Stats Cards */}
@@ -152,7 +152,7 @@ export default function ConsistencyPage() {
 
       {/* 30-Day Heatmap */}
       <div className="consistency-heatmap-card">
-        <h3>📊 กราฟความสม่ำเสมอ 30 วันล่าสุด</h3>
+        <h3>ความสม่ำเสมอ 30 วันล่าสุด</h3>
         <div className="consistency-heatmap">{last30.map(renderHeatmapCell)}</div>
         <div className="heatmap-legend">
           <div className="legend-item"><span className="legend-dot empty"></span>ยังไม่ส่ง</div>
@@ -163,20 +163,20 @@ export default function ConsistencyPage() {
 
       {/* Today Status */}
       <div className="today-status-card">
-        <h3>📋 สถานะวันนี้ ({todayKey})</h3>
+        <h3>สถานะวันนี้ <small>{todayKey}</small></h3>
         <div className="today-status-items">
           <div className={`today-status-item ${todayStatus.meditation ? "done" : ""}`}>
             <div className="today-status-icon med"><img src={lotusIcon} alt="Meditation" className="custom-icon" /></div>
             <span className="today-status-name">Meditation Record</span>
             <span className={`today-status-badge ${todayStatus.meditation ? "sent" : "pending"}`}>
-              {todayStatus.meditation ? "✅ ส่งแล้ว" : "⏳ ยังไม่ส่ง"}
+              {todayStatus.meditation ? "ส่งแล้ว" : "ยังไม่ส่ง"}
             </span>
           </div>
           <div className={`today-status-item ${todayStatus.journal ? "done" : ""}`}>
             <div className="today-status-icon jour"><JournalIcon size={20} color="#fff" /></div>
             <span className="today-status-name">Daily Journal</span>
             <span className={`today-status-badge ${todayStatus.journal ? "sent" : "pending"}`}>
-              {todayStatus.journal ? "✅ ส่งแล้ว" : "⏳ ยังไม่ส่ง"}
+              {todayStatus.journal ? "ส่งแล้ว" : "ยังไม่ส่ง"}
             </span>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function ConsistencyPage() {
             disabled={sheetsLoading}
           >
             <RefreshCw size={16} className={sheetsLoading ? "spin" : ""} />
-            {sheetsLoading ? " กำลังดึงข้อมูล…" : " 🔄 รีเฟรชข้อมูลหลังส่งฟอร์ม"}
+            {sheetsLoading ? "กำลังดึงข้อมูล…" : "รีเฟรชข้อมูลหลังส่งฟอร์ม"}
           </button>
           <a
             href={activeTab === "meditation" ? MEDITATION_LINK : JOURNAL_LINK}

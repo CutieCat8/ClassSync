@@ -83,19 +83,12 @@ export default function AnnouncementCard({
   return (
     <article className={`ann-card ann-tone-${cat.tone} ${className}`}>
       <header className="ann-top">
-        {status ? (
-          <span className={`ann-pill ann-pill-${status.tone}`}>{status.label}</span>
-        ) : (
-          <span className="ann-pill-spacer" />
-        )}
+        <span className="ann-icon" aria-hidden>
+          <Icon size={17} strokeWidth={1.9} />
+        </span>
         <span className="ann-eyebrow">{a.category || "ประกาศ"}</span>
+        {status && <span className={`ann-pill ann-pill-${status.tone}`}>{status.label}</span>}
       </header>
-
-      <div className="ann-illu" aria-hidden>
-        <div className={`ann-illu-bubble ann-tone-${cat.tone}`}>
-          <Icon size={36} strokeWidth={1.8} />
-        </div>
-      </div>
 
       <div className="ann-body">
         <h3 className="ann-title">{a.title}</h3>
