@@ -1,0 +1,158 @@
+/* Teacher side refresh: white and black, one deep-green accent, hairline
+   borders, no gradient tiles. Scoped to .t-page-wrap so it can be removed in
+   one go (delete this file and its @import). */
+
+.t-page-wrap {
+  --m-accent: #002e00;
+  --m-accent-deep: #0f4410;
+  --m-accent-soft: #eef3ee;
+  --m-accent-line: #cbd8cb;
+  --m-ink: #111111;
+  --m-muted: #6b6e6b;
+  --m-faint: #a1a4a1;
+  --m-line: #e6e8e6;
+  --m-ok: #1f6b2a;
+  --m-warn: #8a5a00;
+  --m-bad: #b3261e;
+  color: var(--m-ink);
+}
+
+/* ---------- page header ---------- */
+.t-page { max-width: 1180px; padding: 44px clamp(24px, 4vw, 56px) 72px; gap: 26px; }
+.t-page-head .t-page-title { color: var(--m-ink); font-size: clamp(28px, 2.6vw, 34px); font-weight: 700; letter-spacing: -0.03em; }
+.t-page-head .t-page-meta { margin-top: 8px; color: var(--m-muted); font-size: 14px; }
+.t-eyebrow { display: block; margin-bottom: 10px; color: var(--m-accent); font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+
+/* ---------- overview stats: one quiet strip ---------- */
+.t-stat-row { gap: 0; padding: 4px 0; border-top: 1px solid var(--m-line); border-bottom: 1px solid var(--m-line); }
+.t-stat-card { display: grid; gap: 6px; padding: 20px 26px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.t-stat-card:first-child { padding-left: 0; }
+.t-stat-card + .t-stat-card { border-left: 1px solid var(--m-line); }
+.t-stat-card:hover { transform: none; box-shadow: none; }
+.t-stat-lbl { order: -1; color: var(--m-muted); font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.t-stat-num { color: var(--m-ink); font-size: 34px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.t-stat-card > div { display: flex; flex-direction: column; }
+
+/* ---------- cards, tabs, buttons, inputs ---------- */
+.t-card { padding: 26px; border: 1px solid var(--m-line); border-radius: 24px; background: #fff; box-shadow: none; }
+.t-card-title { color: var(--m-ink); font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+.t-card-sub { color: var(--m-muted); font-size: 13.5px; }
+
+.t-page-wrap .t-pill-row { gap: 4px; padding: 4px; border: 1px solid var(--m-line); border-radius: 999px; background: #fff; }
+.t-page-wrap .t-tab { padding: 7px 16px; border-radius: 999px; color: var(--m-muted); font-weight: 600; }
+.t-page-wrap .t-tab:hover:not(.on) { background: #f3f5f3; }
+.t-page-wrap .t-tab.on { background: var(--m-accent); color: #fff; }
+
+.t-btn-ghost,
+.t-btn-primary { min-height: 42px; padding: 0 20px; border-width: 1px; border-radius: 12px; font-weight: 600; transition: background .15s ease, border-color .15s ease, transform .12s ease; }
+.t-btn-ghost { border-color: var(--m-line); background: #fff; color: var(--m-ink); }
+.t-btn-ghost:hover { border-color: #cfd3cf; background: #f7f8f7; }
+.t-btn-primary { border-color: var(--m-accent); background: var(--m-accent); color: #fff; }
+.t-btn-primary:hover { border-color: var(--m-accent-deep); background: var(--m-accent-deep); }
+.t-btn-primary:active, .t-btn-ghost:active { transform: scale(.98); }
+.t-btn-primary:focus-visible, .t-btn-ghost:focus-visible, .t-tab:focus-visible { outline: 2px solid var(--m-accent); outline-offset: 2px; }
+
+.t-input { min-height: 44px; padding: 10px 14px; border: 1px solid #d9dcd9; border-radius: 11px; }
+.t-input:focus { border-color: var(--m-accent); box-shadow: 0 0 0 4px rgba(0, 46, 0, .12); }
+
+/* ---------- student grid ---------- */
+.t-grid { gap: 10px; }
+.t-grid-cell { padding: 16px 8px 12px; border: 1px solid var(--m-line); border-radius: 18px; background: #fff; transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease; }
+.t-grid-cell:hover { transform: translateY(-2px); border-color: var(--m-accent-line); box-shadow: 0 16px 28px -20px rgba(0, 30, 0, .55); }
+.t-grid-cell:focus-visible { outline: 2px solid var(--m-accent); outline-offset: 2px; }
+/* the status is a small dot, not a coloured bar across the top */
+.t-grid-cell::before { top: 12px; left: auto; right: 12px; width: 7px; height: 7px; border-radius: 50%; }
+.t-grid-cell.on-time::before { background: var(--m-ok); }
+.t-grid-cell.late::before { background: #d19a45; }
+.t-grid-cell.missing::before { background: var(--m-bad); }
+.t-grid-avatar { width: 38px; height: 38px; margin-top: 2px; border: 1px solid var(--m-line); border-radius: 50%; background: #f6f7f6; color: var(--m-ink); font-size: 11.5px; }
+.t-grid-name { color: var(--m-ink); font-size: 11.5px; font-weight: 600; }
+.t-grid-id { color: var(--m-faint); }
+.t-dot { background: #dfe3df; }
+.t-dot.on { background: var(--m-accent); }
+
+.t-legend { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--m-line); color: var(--m-muted); }
+.t-status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border: 1px solid var(--m-line); border-radius: 999px; background: #fff; font-size: 11.5px; font-weight: 600; }
+.t-status-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.t-status-chip.on-time { color: var(--m-ok); background: #fff; }
+.t-status-chip.late { color: var(--m-warn); background: #fff; }
+.t-status-chip.missing { color: var(--m-bad); background: #fff; }
+
+/* ---------- modal ---------- */
+.t-modal-backdrop { background: rgba(10, 12, 10, .5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.t-modal { max-width: 440px; padding: 28px; border-radius: 26px; box-shadow: 0 30px 70px -20px rgba(0, 0, 0, .4); }
+.t-modal-body { gap: 0; padding: 6px 18px; border: 1px solid var(--m-line); border-radius: 16px; background: #fafbfa; }
+.t-modal-row { padding: 12px 0; color: var(--m-muted); font-size: 13.5px; }
+.t-modal-row + .t-modal-row { border-top: 1px solid var(--m-line); }
+.t-modal-row strong.ok { color: var(--m-ok); }
+.t-modal-row strong.no { color: var(--m-bad); }
+
+/* ---------- roster ---------- */
+.roster-row:hover { background: #f8f9f8; }
+.roster-row.on, .roster-row.is-active { border-color: var(--m-accent-line); background: var(--m-accent-soft); }
+.roster-row.on .roster-row-seat { background: #fff; color: var(--m-accent); }
+.roster-row-status.on-time { background: var(--m-ok); }
+.roster-row-status.late { background: #d19a45; }
+.roster-row-status.missing { background: var(--m-bad); }
+.roster-hero { background: linear-gradient(135deg, #0a0a0a 0%, #0a0a0a 55%, #002e00 160%); }
+.roster-hero-status.on-time { background: #cfe8cf; color: #00240a; }
+.roster-hero-status.late { background: #f2dca8; color: #3f2a00; }
+.roster-hero-status.missing { background: #f3c9c5; color: #4a0e09; }
+.roster-check { border-radius: 12px; }
+.roster-check.done { border-color: var(--m-accent-line); background: var(--m-accent-soft); color: var(--m-accent); }
+.roster-check.miss { border-color: #efc9c5; background: #fdf3f2; color: var(--m-bad); }
+
+/* ---------- schedule ---------- */
+.meet-cal-d.has { background: var(--m-accent-soft); }
+.meet-picker-row.on { background: var(--m-accent-soft); }
+.meet-item-del:hover { background: #fdf3f2; color: var(--m-bad); }
+
+/* ---------- announcements composer ---------- */
+.t-page-wrap .ann-cat-pill.on { border-color: var(--m-accent); }
+.t-page-wrap .ann-cat-pill.ann-tone-blue.on .ann-cat-pill-icon,
+.t-page-wrap .ann-cat-pill.ann-tone-orange.on .ann-cat-pill-icon,
+.t-page-wrap .ann-cat-pill.ann-tone-purple.on .ann-cat-pill-icon,
+.t-page-wrap .ann-cat-pill.ann-tone-green.on .ann-cat-pill-icon,
+.t-page-wrap .ann-cat-pill.ann-tone-slate.on .ann-cat-pill-icon { background: var(--m-accent); color: #fff; }
+.t-page-wrap .ann-label { color: var(--m-ink); font-weight: 600; }
+.t-page-wrap .ann-submit-btn { border-radius: 12px; }
+.t-page-wrap .ann-flash { border-radius: 12px; background: var(--m-accent-soft); color: var(--m-accent); }
+
+/* ---------- shared editing (was indigo) ---------- */
+.meet-item-edit { color: var(--m-accent); }
+.meet-item-edit:hover { background: var(--m-accent-soft); }
+.composer-edit-banner { border-color: var(--m-accent-line); background: var(--m-accent-soft); color: var(--m-accent-deep); }
+
+@media (max-width: 1100px) {
+  .t-stat-card { padding: 18px 18px; }
+  .t-stat-card:nth-child(odd) { padding-left: 0; }
+  .t-stat-card:nth-child(3) { border-left: 0; }
+}
+@media (max-width: 640px) {
+  .t-stat-card, .t-stat-card:first-child { padding: 16px 0; border-left: 0; }
+  .t-stat-card + .t-stat-card { border-top: 1px solid var(--m-line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .t-grid-cell, .t-btn-primary, .t-btn-ghost { transition: none; }
+}
+
+/* ---------- composer spacing: give each field room above its label ---------- */
+.t-page-wrap .ann-composer .ann-form { gap: 24px; }
+.t-page-wrap .ann-form-row { gap: 8px; }
+.t-page-wrap .ann-form-grid { gap: 16px; }
+.t-page-wrap .ann-form-row > label,
+.t-page-wrap .ann-label { color: var(--m-ink); font-size: 13px; font-weight: 600; letter-spacing: 0; }
+.t-page-wrap .ann-composer-head { margin-bottom: 26px; }
+
+/* ---------- attendee availability: small, quiet rows ---------- */
+.meet-availability { margin-top: 10px; padding: 16px; border: 1px solid var(--m-line); border-radius: 18px; background: #fafbfa; }
+.meet-availability-head { margin-bottom: 12px; color: var(--m-muted); font-size: 12px; }
+.meet-availability-head > :first-child { color: var(--m-ink); font-weight: 600; }
+.meet-availability-list { gap: 8px; }
+.meet-availability-row { align-items: center; padding: 8px 12px; border: 1px solid var(--m-line); border-radius: 11px; font: inherit; font-size: 13px; transition: border-color .15s ease, background .15s ease; }
+.meet-availability-row:hover { border-color: var(--m-accent-line); background: #fff; }
+.meet-availability-row > span { min-width: 0; overflow: hidden; color: var(--m-ink); font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.meet-availability-row strong { display: inline-flex; flex: none; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+.meet-availability-row strong::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.meet-availability-row.is-available strong { color: var(--m-ok); }
+.meet-availability-row.is-busy strong { color: var(--m-bad); }

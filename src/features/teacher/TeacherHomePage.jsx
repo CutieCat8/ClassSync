@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { Users, CheckCircle2, Flame, Mail } from "lucide-react";
 import { useTeacher } from "./TeacherContext";
 import StudentGrid from "./components/StudentGrid";
 
-function StatTile({ icon: Icon, tone, value, label }) {
+function StatTile({ value, label }) {
   return (
     <div className="t-stat-card">
-      <div className={`t-stat-icon ${tone}`}>
-        <Icon size={20} />
-      </div>
       <div>
         <div className="t-stat-num">{value}</div>
         <div className="t-stat-lbl">{label}</div>
@@ -25,6 +21,7 @@ export default function TeacherHomePage() {
     <div className="t-page-wrap">
       <main className="t-page">
         <header className="t-page-head fade-in">
+          <span className="t-eyebrow">Overview · {teacher.course}</span>
           <h1 className="t-page-title">Teacher Overview</h1>
           <p className="t-page-meta">
             {teacher.name} · {teacher.course} · {stats.total} students
@@ -32,10 +29,10 @@ export default function TeacherHomePage() {
         </header>
 
         <section className="t-stat-row fade-in-delay-1">
-          <StatTile icon={Users} tone="total" value={stats.total} label="Students" />
-          <StatTile icon={CheckCircle2} tone="rate" value={`${stats.onTimeRate}%`} label="On-time today" />
-          <StatTile icon={Flame} tone="streak" value={stats.pendingCount} label="Pending forms" />
-          <StatTile icon={Mail} tone="cta" value={stats.unreadChats} label="Unread chats" />
+          <StatTile value={stats.total} label="Students" />
+          <StatTile value={`${stats.onTimeRate}%`} label="On-time today" />
+          <StatTile value={stats.pendingCount} label="Pending forms" />
+          <StatTile value={stats.unreadChats} label="Unread chats" />
         </section>
 
         <section className="fade-in-delay-2">
